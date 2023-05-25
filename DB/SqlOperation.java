@@ -1,4 +1,4 @@
-package net.codejava.javaee;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -69,8 +69,8 @@ public class SqlOperation implements DataBaseOperation{
 	public Connection GetConnection(String dataBases) throws SQLException {
 		
 		String connectionName = "jdbc:mysql://localhost:3306/"+dataBases;
-		String userName = "Shalev";
-		String password = "*******";
+		String userName = "****";
+		String password = "****";
 		DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 		return( DriverManager.getConnection(connectionName,userName,password));
 	}

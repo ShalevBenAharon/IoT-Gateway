@@ -1,4 +1,4 @@
-package net.codejava.javaee;
+
 
 import org.json.JSONObject;
 
@@ -34,4 +34,5 @@ public class IotUpdate extends HttpServlet {
 	}
 	
 	 /**************************************************************************************************************/
+	
 }

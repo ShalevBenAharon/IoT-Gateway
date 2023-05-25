@@ -1,4 +1,4 @@
-package net.codejava.javaee;
+
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -95,7 +95,7 @@ public class GatewayServer extends HttpServlet {
 	
 	/*******************************************************************/
 	private JSONObject updateIOT(JSONObject jsonObject) {
-		return dataBaseOp.update(jsonObject);
+		return dataBaseOp.update(jsonObject); // NEED TO IMPLEMENT THE UPDATE ITs doing INSERT AT THE MOMENT 
 	}
 	
 }

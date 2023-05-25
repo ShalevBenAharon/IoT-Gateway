@@ -1,19 +1,15 @@
-package net.codejava.javaee;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
-
+import java.util.Arrays;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
-
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
-import com.mongodb.internal.connection.Time;
 
 public class MongodbOperations implements DataBaseOperation {
 	static MongoDatabase database = null;
@@ -45,30 +41,36 @@ public class MongodbOperations implements DataBaseOperation {
 	
 	@Override
 	public JSONObject get(JSONObject json) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	private JSONObject intsertIntoMongo(JSONObject json,String Collection){
+		
 		MongoCollection<Document> collection = database.getCollection(Collection);
 		Document doc = Document.parse(json.toString());
+		String[] Data = {};
+        
+		doc.append("Data", Arrays.asList(Data));
 		collection.insertOne(doc);
-	    ObjectId id = doc.getObjectId("_id");
+	    
+		ObjectId id = doc.getObjectId("_id");
 	    return(new JSONObject().put("id", id.toString()));
 	}
 	
 	private JSONObject updateDoc(JSONObject json,String Collection){
 		MongoCollection<Document> collection = database.getCollection(Collection);
 		Document doc = Document.parse(json.toString());
+		
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		String dateTimeString = currentDateTime.toString();
 		String curDateTime = dateTimeString.substring(0,dateTimeString.indexOf("."));
+		String update = new String(curDateTime + " " + json.getString("Update"));
+		  
 		collection.updateOne(
-				  Filters.eq("S/N", json.getString("S/N")),
-				  Updates.set(curDateTime, json.getString("Update"))
+				  Filters.eq("S/N", json.getString("S/N")),	
+				  Updates.push("Data", update)
 				);
 
-		
 		return json;	
 	}
 
